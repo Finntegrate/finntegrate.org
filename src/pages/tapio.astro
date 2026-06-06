@@ -130,6 +130,54 @@ const steps = [
   },
 ];
 
+const pillarClasses: Record<string, { card: string; heading: string }> = {
+  forest: {
+    card:    'rounded-xl p-5 border border-forest-100 bg-forest-50/40',
+    heading: 'font-semibold text-forest-900 mb-1',
+  },
+  amber: {
+    card:    'rounded-xl p-5 border border-amber-100 bg-amber-50/40',
+    heading: 'font-semibold text-amber-900 mb-1',
+  },
+  nordic: {
+    card:    'rounded-xl p-5 border border-nordic-100 bg-nordic-50/40',
+    heading: 'font-semibold text-nordic-900 mb-1',
+  },
+};
+
+const groupClasses: Record<string, { heading: string; card: string; subtitle: string }> = {
+  forest: {
+    heading:  'text-sm font-semibold uppercase tracking-widest text-forest-700 mb-4 pl-1',
+    card:     'bg-white rounded-2xl p-6 border border-forest-100 hover:border-forest-300 hover:shadow-sm transition-all duration-200',
+    subtitle: 'text-sm font-medium text-forest-700',
+  },
+  amber: {
+    heading:  'text-sm font-semibold uppercase tracking-widest text-amber-700 mb-4 pl-1',
+    card:     'bg-white rounded-2xl p-6 border border-amber-100 hover:border-amber-300 hover:shadow-sm transition-all duration-200',
+    subtitle: 'text-sm font-medium text-amber-700',
+  },
+  nordic: {
+    heading:  'text-sm font-semibold uppercase tracking-widest text-nordic-700 mb-4 pl-1',
+    card:     'bg-white rounded-2xl p-6 border border-nordic-100 hover:border-nordic-300 hover:shadow-sm transition-all duration-200',
+    subtitle: 'text-sm font-medium text-nordic-700',
+  },
+  purple: {
+    heading:  'text-sm font-semibold uppercase tracking-widest text-purple-700 mb-4 pl-1',
+    card:     'bg-white rounded-2xl p-6 border border-purple-100 hover:border-purple-300 hover:shadow-sm transition-all duration-200',
+    subtitle: 'text-sm font-medium text-purple-700',
+  },
+  teal: {
+    heading:  'text-sm font-semibold uppercase tracking-widest text-teal-700 mb-4 pl-1',
+    card:     'bg-white rounded-2xl p-6 border border-teal-100 hover:border-teal-300 hover:shadow-sm transition-all duration-200',
+    subtitle: 'text-sm font-medium text-teal-700',
+  },
+  gray: {
+    heading:  'text-sm font-semibold uppercase tracking-widest text-gray-700 mb-4 pl-1',
+    card:     'bg-white rounded-2xl p-6 border border-gray-100 hover:border-gray-300 hover:shadow-sm transition-all duration-200',
+    subtitle: 'text-sm font-medium text-gray-700',
+  },
+};
+
 const techFeatures = [
   {
     term: "Unified Knowledge Base",
@@ -224,9 +272,9 @@ const techFeatures = [
             },
           ].map((item) => (
             <div
-              class={`rounded-xl p-5 border border-${item.color}-100 bg-${item.color}-50/40`}
+              class={pillarClasses[item.color].card}
             >
-              <h3 class={`font-semibold text-${item.color}-900 mb-1`}>
+              <h3 class={pillarClasses[item.color].heading}>
                 {item.title}
               </h3>
               <p class="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
@@ -254,21 +302,17 @@ const techFeatures = [
         {
           agents.map((group) => (
             <div>
-              <h3
-                class={`text-sm font-semibold uppercase tracking-widest text-${group.color}-700 mb-4 pl-1`}
-              >
+              <h3 class={groupClasses[group.color].heading}>
                 {group.category}
               </h3>
               <div class="grid sm:grid-cols-2 gap-4">
                 {group.members.map((agent) => (
-                  <div
-                    class={`bg-white rounded-2xl p-6 border border-${group.color}-100 hover:border-${group.color}-300 hover:shadow-sm transition-all duration-200`}
-                  >
+                  <div class={groupClasses[group.color].card}>
                     <div class="mb-3">
                       <p class="text-lg font-bold text-gray-900">
                         {agent.name}
                       </p>
-                      <p class={`text-sm font-medium text-${group.color}-700`}>
+                      <p class={groupClasses[group.color].subtitle}>
                         {agent.subtitle}
                       </p>
                       <p class="text-xs text-gray-600 italic mt-1">

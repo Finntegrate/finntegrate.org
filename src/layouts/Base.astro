@@ -4,16 +4,22 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Finntegrate — AI-powered, multilingual immigration guide for Finland' } = Astro.props;
+const {
+  title,
+  description = "Finntegrate — AI-powered, multilingual immigration guide for Finland",
+} = Astro.props;
 
 const currentPath = Astro.url.pathname;
+const normalizedPath =
+  currentPath !== "/" && currentPath.endsWith("/")
+    ? currentPath.slice(0, -1)
+    : currentPath;
 
 const navLinks = [
-  { href: '/experiences', label: 'Immigrant Experiences' },
-  { href: '/about',       label: 'Mission & Vision' },
-  { href: '/tapio',       label: 'Tapio' },
-  { href: '/contact',     label: 'Contact' },
-  { href: '/resources',   label: 'Resources' },
+  { href: "/experiences", label: "Immigrant Experiences" },
+  { href: "/about",       label: "Mission & Vision" },
+  { href: "/tapio",       label: "Tapio" },
+  { href: "/contact",     label: "Contact" },
 ];
 ---
 
@@ -25,31 +31,47 @@ const navLinks = [
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.bunny.net" />
-    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800&display=swap"
+      rel="stylesheet"
+    />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-white text-gray-900" style="font-family: Inter, system-ui, sans-serif;">
-
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
-      <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="/" class="text-xl font-bold text-forest-900 hover:text-forest-700 tracking-tight transition-colors">
+  <body
+    class="min-h-screen bg-white text-gray-900"
+    style="font-family: Inter, system-ui, sans-serif;"
+  >
+    <header
+      class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm"
+    >
+      <nav
+        aria-label="Main navigation"
+        class="max-w-6xl mx-auto px-6 py-4 flex flex-wrap items-center gap-x-8 gap-y-3"
+      >
+        <a
+          href="/"
+          aria-label="Finntegrate home"
+          class="text-xl font-bold text-forest-900 hover:text-forest-700 tracking-tight transition-colors mr-auto"
+        >
           Finntegrate
         </a>
-        <ul class="hidden md:flex items-center gap-7 text-sm font-medium text-gray-600">
-          {navLinks.map(link => (
-            <li>
-              <a
-                href={link.href}
-                class={`hover:text-forest-800 transition-colors ${currentPath === link.href ? 'text-forest-800 font-semibold' : ''}`}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
+        <ul
+          class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium text-gray-600"
+        >
+          {
+            navLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  aria-current={normalizedPath === link.href ? "page" : undefined}
+                  class={`hover:text-forest-800 transition-colors ${normalizedPath === link.href ? "text-forest-800 font-semibold" : ""}`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
-        <div class="md:hidden">
-          <a href="/about" class="text-sm font-medium text-gray-600 hover:text-forest-700">Menu</a>
-        </div>
       </nav>
     </header>
 
@@ -63,37 +85,84 @@ const navLinks = [
           <div class="sm:col-span-2">
             <p class="text-white font-bold text-lg mb-2">Finntegrate</p>
             <p class="text-forest-300 text-sm leading-relaxed max-w-xs">
-              Making Finnish immigration simpler through AI-powered, multilingual guidance.
+              Making Finnish immigration simpler through AI-powered,
+              multilingual guidance.
             </p>
           </div>
           <div>
-            <p class="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Explore</p>
-            <ul class="space-y-2 text-sm">
-              {navLinks.map(link => (
-                <li><a href={link.href} class="hover:text-white transition-colors">{link.label}</a></li>
-              ))}
-            </ul>
+            <h2
+              class="text-white font-semibold text-sm mb-3 uppercase tracking-wide"
+            >
+              Explore
+            </h2>
+            <nav aria-label="Explore">
+              <ul class="space-y-2 text-sm">
+                {
+                  navLinks.map((link) => (
+                    <li>
+                      <a
+                        href={link.href}
+                        class="hover:text-white transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </nav>
           </div>
           <div>
-            <p class="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Connect</p>
-            <ul class="space-y-2 text-sm">
-              <li><a href="https://github.com/Finntegrate/finntegrate.org" class="hover:text-white transition-colors">GitHub</a></li>
-              <li><a href="/contact" class="hover:text-white transition-colors">Contact</a></li>
-            </ul>
+            <h2
+              class="text-white font-semibold text-sm mb-3 uppercase tracking-wide"
+            >
+              Connect
+            </h2>
+            <nav aria-label="Connect">
+              <ul class="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="https://github.com/Finntegrate/finntegrate.org"
+                    class="hover:text-white transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub<span class="sr-only"> (opens in new tab)</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/contact" class="hover:text-white transition-colors"
+                    >Contact</a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
-        <div class="border-t border-forest-900 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-forest-400">
+        <div
+          class="border-t border-forest-900 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-forest-400"
+        >
           <p>
             &copy; {new Date().getFullYear()} Finntegrate. Content licensed under
-            <a href="https://creativecommons.org/licenses/by/4.0/" class="underline hover:text-white" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.
+            <a
+              href="https://creativecommons.org/licenses/by/4.0/"
+              class="underline hover:text-white"
+              target="_blank"
+              rel="noopener noreferrer"
+              >CC BY 4.0<span class="sr-only"> (opens in new tab)</span></a
+            >.
           </p>
           <p>
             Code licensed under
-            <a href="https://opensource.org/licenses/MIT" class="underline hover:text-white" target="_blank" rel="noopener noreferrer">MIT</a>.
+            <a
+              href="https://opensource.org/licenses/MIT"
+              class="underline hover:text-white"
+              target="_blank"
+              rel="noopener noreferrer"
+              >MIT<span class="sr-only"> (opens in new tab)</span></a
+            >.
           </p>
         </div>
       </div>
     </footer>
-
   </body>
 </html>

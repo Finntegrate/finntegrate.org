@@ -1,11 +1,931 @@
 ---
-import Base from '@/layouts/Base.astro';
+import Base from "@/layouts/Base.astro";
+import CtaBanner from "@/components/CtaBanner.astro";
+
+const phases = [
+  {
+    number: 1,
+    title: "Pre-Arrival Planning",
+    timeline: "Months to years before arrival",
+    focus: "Applications, documentation, and logistics from origin country",
+    needed: [
+      "Clear, consolidated information",
+      "Financial planning guidance",
+      "Timeline expectations",
+    ],
+    challenges: [
+      "Scattered information sources",
+      "Complex permit processes",
+      "Uncertain waiting times",
+    ],
+    emotion: "Excitement mixed with anxiety 🤔",
+    mindset: "Planning and anticipation",
+    help: "Our AI assistant provides personalized guidance based on your specific situation, connecting you with the right official resources and helping you understand each step.",
+    color: "nordic",
+  },
+  {
+    number: 2,
+    title: "Arrival & Initial Setup",
+    timeline: "First 8 weeks",
+    focus: "Immediate practical needs and first bureaucratic steps",
+    needed: [
+      "Housing assistance",
+      "Step-by-step administrative guidance",
+      "Priority task sequencing",
+    ],
+    challenges: [
+      "Circular dependencies in paperwork",
+      "Housing market difficulties",
+      "Information overload",
+    ],
+    emotion: "Relief mixed with overwhelm 🤯",
+    mindset: "Survival mode and urgent problem-solving",
+    help: "We break down the complex bureaucratic steps into manageable tasks, explaining dependencies and helping you tackle them in the right order.",
+    color: "amber",
+  },
+  {
+    number: 3,
+    title: "Early Integration",
+    timeline: "2 months to 1 year",
+    focus: "Building routines, language skills, and social connections",
+    needed: [
+      "Effective language learning resources",
+      "Social and professional networking",
+      "Cultural understanding support",
+    ],
+    challenges: [
+      "Slow language acquisition",
+      "Employment barriers",
+      "Social isolation",
+    ],
+    emotion: "Curiosity mixed with frustration 🤷",
+    mindset: "Learning and adaptation mode",
+    help: "We connect you with language learning opportunities, job search resources, and community groups that match your interests and background.",
+    color: "forest",
+  },
+  {
+    number: 4,
+    title: "Deeper Integration",
+    timeline: "1 to 3 years",
+    focus: "Long-term planning, career development, and community involvement",
+    needed: [
+      "Advanced career support",
+      "Community engagement opportunities",
+      "Long-term planning guidance",
+    ],
+    challenges: [
+      "Career progression barriers",
+      "Subtle cultural differences",
+      "Identity balance questions",
+    ],
+    emotion: "Growing confidence with determination 😎",
+    mindset: "Long-term focus and growth-oriented",
+    help: "We help you find advanced career resources, professional development opportunities, and ways to contribute to your community while maintaining your cultural identity.",
+    color: "teal",
+  },
+  {
+    number: 5,
+    title: "Permanence or Transition",
+    timeline: "3+ years",
+    focus: "Permanent residency decisions and long-term life planning",
+    needed: [
+      "Clear citizenship pathway information",
+      "Long-term financial planning advice",
+      "Family future planning support",
+    ],
+    challenges: [
+      "Complex residency requirements",
+      "Citizenship versus belonging questions",
+      "Future uncertainty",
+    ],
+    emotion: "Reflection mixed with planning uncertainty 🤔",
+    mindset: "Strategic planning and identity consolidation",
+    help: "We provide clear information about permanent residency and citizenship requirements, helping you make informed decisions about your future in Finland.",
+    color: "purple",
+  },
+];
+
+const pathways = [
+  {
+    title: "International Students",
+    desc: "Young adults pursuing higher education, often experiencing Finland for the first time with limited prior cultural exposure.",
+    challenges:
+      "Post-graduation transition, moving from study to work permits, building professional networks from scratch",
+    success: "Early career planning and networking during studies",
+    help: "Guide through visa transitions, connect with career resources, explain Finnish workplace culture",
+  },
+  {
+    title: "Skilled Workers",
+    desc: "Professionals recruited for specific roles, often with employment secured but facing credential recognition and cultural adaptation challenges.",
+    challenges:
+      "Professional qualification recognition, workplace culture adaptation, supporting family integration",
+    success:
+      "Understanding Finnish professional norms and building local networks",
+    help: "Explain credential recognition processes, workplace culture guidance, family support resources",
+  },
+  {
+    title: "EU Citizens",
+    desc: "Europeans exercising freedom of movement, ranging from students to retirees, with simplified legal procedures but varying cultural adaptation needs.",
+    challenges:
+      "Accessing services without formal residency processes, unexpected cultural differences despite geographic proximity",
+    success:
+      "Understanding which services require registration and which don't",
+    help: "Clarify registration requirements, explain service access rights, cultural orientation support",
+  },
+  {
+    title: "Family Reunification",
+    desc: "Spouses, children, and family members joining relatives already in Finland, with varying levels of preparation and independence.",
+    challenges:
+      "Dependency on sponsor's integration level, employment restrictions, children's school integration",
+    success: "Developing independent networks and language skills",
+    help: "Family-specific guidance, children's education support, spouse employment pathways",
+  },
+  {
+    title: "Refugees & Asylum Seekers",
+    desc: "Individuals seeking protection, often arriving with minimal resources and potentially traumatic experiences requiring specialized, sensitive support.",
+    challenges:
+      "Trauma-informed integration needs, basic security concerns, legal status uncertainty, extensive cultural adaptation",
+    success:
+      "Access to specialized support services and patient, long-term integration planning",
+    help: "Connect with specialized support services, explain rights and protections",
+  },
+  {
+    title: "Temporary Protection",
+    desc: "Individuals granted temporary residence due to emergency situations, facing uncertainty about long-term prospects while needing immediate support.",
+    challenges:
+      "Planning under uncertainty, balancing temporary status with integration needs, maintaining hope",
+    success:
+      "Flexible planning and access to both immediate and long-term support options",
+    help: "Provide information for both temporary and permanent scenarios, immediate needs support",
+  },
+  {
+    title: "Entrepreneurs & Investors",
+    desc: "Business-oriented immigrants seeking to establish operations in Finland, often with resources but facing unique regulatory and market challenges.",
+    challenges:
+      "Business regulatory requirements, market understanding, Finnish business culture networking",
+    success:
+      "Understanding local business practices and building strategic partnerships",
+    help: "Business registration guidance, regulatory requirement explanations, networking opportunities",
+  },
+  {
+    title: "Temporary Workers",
+    desc: "Seasonal or contract workers in agriculture, construction, and hospitality, with specific rights and protections but limited integration expectations.",
+    challenges:
+      "Understanding worker rights, basic service access, preventing exploitation, unclear pathway options",
+    success:
+      "Knowing rights and protections while understanding future options",
+    help: "Worker rights information, basic service access, pathway exploration for longer-term options",
+  },
+];
+
+const challenges = [
+  {
+    title: "Administrative Complexity",
+    desc: "Finnish administrative systems have many interconnected steps that can feel like solving puzzles without clear instructions.",
+    examples:
+      "Needing an ID to get a bank account, but needing a bank account to access many services; unclear timelines; information scattered across multiple agencies",
+    help: "Break down complex processes into clear, sequential steps with plain language explanations",
+  },
+  {
+    title: "Language Barriers",
+    desc: "Finnish and Swedish requirements create ongoing challenges across work, healthcare, education, and social life.",
+    examples:
+      "Medical appointments conducted only in Finnish, legal documents without translation, workplace communication expectations",
+    help: "Provide multilingual guidance and connect you with language learning resources and translation services",
+  },
+  {
+    title: "Employment Barriers",
+    desc: "Finding work that matches skills and qualifications proves difficult due to both formal and informal barriers.",
+    examples:
+      '"Finnish experience" requirements, hidden job markets, credential recognition delays, networking challenges',
+    help: "Guide through credential recognition, explain job search strategies, connect with networking opportunities",
+  },
+  {
+    title: "Social Connection Challenges",
+    desc: "Building meaningful relationships and professional networks requires understanding Finnish social culture and finding the right opportunities.",
+    examples:
+      "Difficulty joining established social groups, different communication styles, limited informal interaction opportunities",
+    help: "Connect you with community groups, explain social customs, suggest networking and hobby opportunities",
+  },
+  {
+    title: "Cultural Understanding",
+    desc: "Learning unwritten cultural rules while maintaining personal and family identity creates ongoing adaptation challenges.",
+    examples:
+      "Workplace hierarchy and communication styles, social etiquette expectations, parenting and education approaches",
+    help: "Provide cultural context and explanations, suggest cultural orientation resources, respect your background",
+  },
+  {
+    title: "Financial Planning",
+    desc: "High living costs combined with employment challenges and different financial systems create ongoing planning difficulties.",
+    examples:
+      "Housing deposits and costs, healthcare expenses, education fees, understanding the social security system",
+    help: "Explain the Finnish financial system, connect with budgeting resources, clarify benefit entitlements",
+  },
+];
+
+const successFactors = [
+  {
+    title: "Language Progress",
+    desc: "Even basic Finnish opens doors to employment, healthcare, and social connections. Consistent practice makes a huge difference.",
+  },
+  {
+    title: "Building Networks",
+    desc: "Both social and professional connections provide crucial support, opportunities, and sense of belonging in Finnish society.",
+  },
+  {
+    title: "Proactive Planning",
+    desc: "Seeking information early and planning ahead helps avoid common pitfalls and reduces stress during transitions.",
+  },
+  {
+    title: "Meaningful Activity",
+    desc: "Whether work, study, or volunteering, having purposeful activity provides structure, connections, and sense of contribution.",
+  },
+  {
+    title: "Emotional Resilience",
+    desc: "Flexibility and patience with yourself help cope with setbacks and cultural differences throughout the process.",
+  },
+  {
+    title: "Realistic Expectations",
+    desc: "Understanding that integration takes time helps maintain motivation and mental health during challenging periods.",
+  },
+];
+
+const agencies = [
+  { name: "Migri", role: "Immigration permits, asylum, citizenship" },
+  { name: "DVV", role: "Population registration, personal ID" },
+  { name: "Kela", role: "Social security, family benefits" },
+  { name: "TEM", role: "Employment, integration policy" },
+];
+
+const resources = [
+  "InfoFinland.fi / Suomi.fi (Official information portals)",
+  "International House services (One-stop guidance)",
+  "NGOs and community organizations (Specialized support)",
+  "Online communities and peer networks (Shared experiences)",
+];
 ---
 
-<Base title="Immigrant Experiences — Finntegrate" description="Real stories from immigrants navigating life in Finland.">
-  <section class="max-w-3xl mx-auto px-6 py-20">
-    <h1 class="text-4xl font-extrabold text-forest-950 mb-4">Immigrant Experiences</h1>
-    <p class="text-gray-500 text-lg mb-10">Content being restored from archive — check back soon.</p>
-    <a href="/" class="text-forest-700 font-medium hover:underline">&larr; Back to Home</a>
+<Base
+  title="Immigrant Experiences in Finland — Finntegrate"
+  description="Understanding the immigrant experience from arrival to integration — and how Finntegrate helps."
+>
+  {/* ── Hero ─────────────────────────────────────────────────────────── */}
+  <section
+    class="bg-gradient-to-br from-forest-950 via-forest-900 to-nordic-950 text-white"
+  >
+    <div class="max-w-5xl mx-auto px-6 py-24 text-center">
+      <a
+        href="/"
+        class="inline-flex items-center gap-1.5 text-forest-300 hover:text-white text-sm mb-8 transition-colors"
+      >
+        <svg
+          aria-hidden="true"
+          class="w-4 h-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg
+        >
+        Back to Home
+      </a>
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+        Immigrant Experiences in Finland
+      </h1>
+      <p class="text-forest-200 text-lg max-w-2xl mx-auto mb-12">
+        Understanding the immigrant experience from arrival to integration — and
+        how we help.
+      </p>
+      <div class="flex justify-center gap-12">
+        <div>
+          <p class="text-5xl font-extrabold text-amber-400">5</p>
+          <p class="text-forest-300 text-sm mt-1">Key Phases</p>
+          <p class="text-forest-400 text-xs">From arrival to permanence</p>
+        </div>
+        <div class="border-l border-forest-800"></div>
+        <div>
+          <p class="text-5xl font-extrabold text-amber-400">8+</p>
+          <p class="text-forest-300 text-sm mt-1">Pathways</p>
+          <p class="text-forest-400 text-xs">Different routes analyzed</p>
+        </div>
+      </div>
+    </div>
   </section>
+
+  {/* ── Intro ─────────────────────────────────────────────────────────── */}
+  <section class="bg-white py-14 px-6 border-b border-gray-100">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-gray-600 text-lg leading-relaxed">
+        At Finntegrate, we understand that every immigrant's experience is
+        unique, yet certain patterns emerge across different pathways to
+        Finland. Whether you're planning your move or supporting someone through
+        theirs, this guide maps the common experiences, challenges, and support
+        needs we help address through our AI assistant.
+      </p>
+    </div>
+  </section>
+
+  {/* ── 5 Key Phases ─────────────────────────────────────────────────── */}
+  <section class="bg-gray-50 py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          The 5 Key Phases of Immigration
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          While every situation is unique, we've identified common phases that
+          most immigrants experience. Understanding these helps both immigrants
+          prepare for what's ahead and organizations better support their
+          clients and international talent.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        {
+          phases.map((phase) => (
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+              <div class="flex items-center gap-4 px-7 pt-7 pb-4">
+                <span class="w-10 h-10 rounded-full bg-forest-950 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
+                  {phase.number}
+                </span>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900">{phase.title}</h3>
+                  <p class="text-sm text-gray-500">
+                    Timeline: {phase.timeline}
+                  </p>
+                </div>
+              </div>
+              <div class="grid md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-100 px-7 pb-7">
+                <div class="pt-4 md:pt-0 md:pr-6">
+                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+                    Focus
+                  </p>
+                  <p class="text-sm text-gray-700 mb-4">{phase.focus}</p>
+                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+                    Most Needed
+                  </p>
+                  <ul class="space-y-1">
+                    {phase.needed.map((n) => (
+                      <li class="text-sm text-gray-700 flex items-start gap-2">
+                        <span class="text-forest-500 font-bold mt-0.5 flex-shrink-0">
+                          ·
+                        </span>
+                        {n}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="pt-4 md:pt-0 md:px-6">
+                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+                    Common Challenges
+                  </p>
+                  <ul class="space-y-1 mb-4">
+                    {phase.challenges.map((c) => (
+                      <li class="text-sm text-gray-700 flex items-start gap-2">
+                        <span class="text-red-400 mt-0.5 flex-shrink-0">·</span>
+                        {c}
+                      </li>
+                    ))}
+                  </ul>
+                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+                    Emotions
+                  </p>
+                  <p class="text-sm text-gray-700 mb-2">{phase.emotion}</p>
+                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+                    Mindset
+                  </p>
+                  <p class="text-sm text-gray-700">{phase.mindset}</p>
+                </div>
+                <div class="pt-4 md:pt-0 md:pl-6">
+                  <p class="text-xs font-semibold text-forest-700 uppercase tracking-wide mb-2">
+                    How We Help
+                  </p>
+                  <p class="text-sm text-gray-700 leading-relaxed">
+                    {phase.help}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ── Phase Comparison Table ────────────────────────────────────────── */}
+  <section class="bg-white py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">
+        Phase Comparison
+      </h2>
+      <div class="overflow-x-auto rounded-2xl border border-gray-200 shadow-sm">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-forest-950 text-white">
+              <th class="text-left p-4 font-semibold w-28">Category</th>
+              {
+                phases.map((p) => (
+                  <th class="text-left p-4 font-semibold">
+                    <span class="block">
+                      {p.number}. {p.title.split(" ")[0]}
+                    </span>
+                    <span class="block text-forest-300 font-normal text-xs mt-0.5">
+                      {p.timeline}
+                    </span>
+                  </th>
+                ))
+              }
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr class="hover:bg-gray-50">
+              <th
+                scope="row"
+                class="p-4 font-semibold text-gray-500 text-xs uppercase tracking-wide align-top"
+                >Focus</th
+              >
+              {
+                phases.map((p) => (
+                  <td class="p-4 text-gray-700 align-top">{p.focus}</td>
+                ))
+              }
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <th
+                scope="row"
+                class="p-4 font-semibold text-gray-500 text-xs uppercase tracking-wide align-top"
+                >Most Needed</th
+              >
+              {
+                phases.map((p) => (
+                  <td class="p-4 align-top">
+                    <ul class="space-y-1">
+                      {p.needed.map((n) => (
+                        <li class="text-gray-700">{n}</li>
+                      ))}
+                    </ul>
+                  </td>
+                ))
+              }
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <th
+                scope="row"
+                class="p-4 font-semibold text-gray-500 text-xs uppercase tracking-wide align-top"
+                >Challenges</th
+              >
+              {
+                phases.map((p) => (
+                  <td class="p-4 align-top">
+                    <ul class="space-y-1">
+                      {p.challenges.map((c) => (
+                        <li class="text-gray-700">{c}</li>
+                      ))}
+                    </ul>
+                  </td>
+                ))
+              }
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <th
+                scope="row"
+                class="p-4 font-semibold text-gray-500 text-xs uppercase tracking-wide align-top"
+                >Emotions</th
+              >
+              {
+                phases.map((p) => (
+                  <td class="p-4 text-gray-700 align-top">{p.emotion}</td>
+                ))
+              }
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <th
+                scope="row"
+                class="p-4 font-semibold text-gray-500 text-xs uppercase tracking-wide align-top"
+                >Mindset</th
+              >
+              {
+                phases.map((p) => (
+                  <td class="p-4 text-gray-700 align-top">{p.mindset}</td>
+                ))
+              }
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Why This Matters ─────────────────────────────────────────────── */}
+  <section class="bg-forest-50 py-16 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">
+        Why This Understanding Matters
+      </h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-8 border border-forest-100">
+          <h3 class="font-semibold text-forest-900 text-lg mb-3">
+            For Immigrants
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            Knowing what to expect helps you prepare emotionally and practically
+            for each phase. Understanding that challenges are normal and
+            temporary can reduce stress and help you seek appropriate support at
+            the right time.
+          </p>
+        </div>
+        <div class="bg-white rounded-2xl p-8 border border-nordic-100">
+          <h3 class="font-semibold text-nordic-900 text-lg mb-3">
+            For Organizations
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            These insights help organizations better support their international
+            talent, government agencies improve service delivery, and
+            communities create more effective integration programs.
+            Understanding the full experience enables more targeted and
+            effective support.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Different Pathways ────────────────────────────────────────────── */}
+  <section class="bg-white py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Different Pathways: Understanding Diverse Needs
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Each pathway to Finland brings unique circumstances, challenges, and
+          support needs. Our AI assistant provides personalized guidance based
+          on your specific situation, while organizations can better understand
+          the diverse experiences of their international talent.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        {
+          pathways.map((pathway) => (
+            <div class="rounded-2xl border border-gray-100 hover:border-forest-200 hover:shadow-md p-7 transition-all duration-200">
+              <h3 class="text-lg font-bold text-gray-900 mb-2">
+                {pathway.title}
+              </h3>
+              <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                {pathway.desc}
+              </p>
+              <div class="space-y-3 text-sm">
+                <div>
+                  <span class="font-semibold text-red-600">
+                    Unique Challenges:{" "}
+                  </span>
+                  <span class="text-gray-600">{pathway.challenges}</span>
+                </div>
+                <div>
+                  <span class="font-semibold text-amber-600">
+                    Key Success Factor:{" "}
+                  </span>
+                  <span class="text-gray-600">{pathway.success}</span>
+                </div>
+                <div>
+                  <span class="font-semibold text-forest-700">
+                    How We Help:{" "}
+                  </span>
+                  <span class="text-gray-600">{pathway.help}</span>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ── What This Means for Support Systems ──────────────────────────── */}
+  <section class="bg-gray-50 py-16 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">
+        What This Means for Support Systems
+      </h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-7 border border-gray-100">
+          <h3 class="font-semibold text-gray-900 mb-4">Common Threads</h3>
+          <ul class="space-y-2 text-sm text-gray-600">
+            {
+              [
+                "Language learning as universal need",
+                "Administrative process complexity",
+                "Social connection importance",
+                "Employment-integration connection",
+              ].map((t) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-forest-500 font-bold mt-0.5">·</span>
+                  {t}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="bg-white rounded-2xl p-7 border border-gray-100">
+          <h3 class="font-semibold text-gray-900 mb-4">Key Differences</h3>
+          <ul class="space-y-2 text-sm text-gray-600">
+            {
+              [
+                "Preparation time varies dramatically",
+                "Legal security differs significantly",
+                "Resource availability ranges widely",
+                "Cultural adaptation needs vary",
+              ].map((t) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-amber-500 font-bold mt-0.5">·</span>
+                  {t}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="bg-white rounded-2xl p-7 border border-forest-100">
+          <h3 class="font-semibold text-gray-900 mb-4">Our Approach</h3>
+          <ul class="space-y-2 text-sm text-gray-600">
+            {
+              [
+                "Personalized guidance based on pathway",
+                "Timing-sensitive support delivery",
+                "Connection to relevant peer networks",
+                "Trauma-informed communication when needed",
+              ].map((t) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-nordic-500 font-bold mt-0.5">·</span>
+                  {t}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Common Challenges ─────────────────────────────────────────────── */}
+  <section class="bg-white py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl font-bold text-gray-900 mb-3">
+          Common Challenges &amp; Keys to Success
+        </h2>
+        <p class="text-gray-500 font-semibold mb-2">
+          Universal Challenges We Help Address
+        </p>
+        <p class="text-gray-600 max-w-2xl mx-auto text-sm">
+          These challenges consistently affect immigrants across different
+          pathways to Finland. Understanding them helps both immigrants prepare
+          and organizations provide better support.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6 mb-16">
+        {
+          challenges.map((c) => (
+            <div class="rounded-2xl border border-gray-100 hover:border-red-100 hover:shadow-md p-7 transition-all duration-200">
+              <h3 class="text-lg font-bold text-gray-900 mb-2">{c.title}</h3>
+              <p class="text-gray-600 text-sm mb-4 leading-relaxed">{c.desc}</p>
+              <p class="text-sm text-gray-500 mb-3">
+                <span class="font-semibold text-gray-700">
+                  Common Examples:{" "}
+                </span>
+                {c.examples}
+              </p>
+              <p class="text-sm">
+                <>
+                  <span class="font-semibold text-forest-700">
+                    How We Help:{" "}
+                  </span>
+                  <span class="text-gray-600">{c.help}</span>
+                </>
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-900 mb-3 text-center">
+        What Makes the Biggest Difference
+      </h3>
+      <p class="text-gray-600 text-center max-w-2xl mx-auto mb-10 text-sm">
+        Our experience shows these factors significantly improve integration
+        outcomes and overall well-being for immigrants to Finland.
+      </p>
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+        {
+          successFactors.map((f) => (
+            <div class="bg-forest-50 rounded-xl p-6 border border-forest-100">
+              <h4 class="font-semibold text-forest-900 mb-2">{f.title}</h4>
+              <p class="text-sm text-gray-600 leading-relaxed">{f.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ── First Steps Flow ─────────────────────────────────────────────── */}
+  <section class="bg-gray-50 py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">
+          First Steps: Understanding Initial Requirements
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          The initial administrative tasks often have dependencies that aren't
+          immediately clear. Here's how the key early steps typically connect to
+          each other.
+        </p>
+      </div>
+
+      <div
+        class="flex flex-col md:flex-row items-center justify-center gap-4 mb-10"
+      >
+        {
+          [
+            {
+              step: "DVV Registration",
+              detail:
+                "Personal ID & Municipality registration. Processing typically takes several weeks.",
+            },
+            {
+              step: "Bank Account",
+              detail:
+                "Usually requires Personal ID. Some banks may have different requirements.",
+            },
+            {
+              step: "Kela Registration",
+              detail:
+                "Social security card and benefits. Requires Personal ID and often bank account details.",
+            },
+            {
+              step: "Tax Card",
+              detail:
+                "Needed for employment. Can often be obtained quickly once you have Personal ID.",
+            },
+          ].map((item, i, arr) => (
+            <div class="flex md:flex-col items-center gap-4 md:gap-0 md:contents">
+              <div class="bg-white rounded-2xl border border-nordic-200 p-6 text-center w-full md:w-52 shadow-sm">
+                <div class="w-8 h-8 rounded-full bg-nordic-900 text-white flex items-center justify-center text-sm font-bold mx-auto mb-3">
+                  {i + 1}
+                </div>
+                <p class="font-semibold text-gray-900 text-sm mb-1">
+                  {item.step}
+                </p>
+                <p class="text-xs text-gray-500 leading-relaxed">
+                  {item.detail}
+                </p>
+              </div>
+              {i < arr.length - 1 && (
+                <div class="text-gray-400 flex-shrink-0 hidden md:block">
+                  <svg
+                    aria-hidden="true"
+                    class="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </div>
+              )}
+            </div>
+          ))
+        }
+      </div>
+
+      <div
+        class="bg-amber-50 border border-amber-200 rounded-2xl p-7 max-w-3xl mx-auto"
+      >
+        <p class="text-amber-900 font-semibold mb-2">
+          The "Chicken and Egg" Problem
+        </p>
+        <p class="text-amber-800 text-sm leading-relaxed mb-4">
+          These dependencies often create a frustrating situation for many
+          newcomers. Understanding the sequence and potential alternatives can
+          significantly ease this process.
+        </p>
+        <p class="text-sm">
+          <span class="font-semibold text-amber-900">How We Help: </span>
+          <span class="text-amber-800"
+            >Our AI assistant explains these dependencies, suggests strategies
+            for different situations, and connects you with the most current
+            requirements for each step.</span
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Finland's Support System ─────────────────────────────────────── */}
+  <section class="bg-forest-950 text-white py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold mb-12 text-center">
+        Understanding Finland's Support System
+      </h2>
+      <div class="grid md:grid-cols-2 gap-8 mb-10">
+        <div>
+          <h3 class="text-lg font-semibold text-amber-400 mb-5">
+            Key Agencies &amp; Current Trends
+          </h3>
+          <div class="space-y-3">
+            {
+              agencies.map((a) => (
+                <div class="flex items-start gap-3">
+                  <span class="bg-forest-800 text-amber-300 font-bold text-xs px-2.5 py-1 rounded-full flex-shrink-0 mt-0.5">
+                    {a.name}
+                  </span>
+                  <span class="text-forest-200 text-sm">{a.role}</span>
+                </div>
+              ))
+            }
+          </div>
+          <p class="text-forest-300 text-sm mt-6 leading-relaxed">
+            Finland's immigration policies continue to evolve, with recent
+            changes including updated integration requirements and modified
+            family reunification criteria. Staying informed about current
+            requirements is essential, as policies can change faster than
+            information on individual websites is updated.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-amber-400 mb-5">
+            Available Support Resources
+          </h3>
+          <ul class="space-y-3 mb-6">
+            {
+              resources.map((r) => (
+                <li class="flex items-start gap-3 text-sm text-forest-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0 mt-1.5" />
+                  {r}
+                </li>
+              ))
+            }
+          </ul>
+          <p class="text-forest-300 text-sm leading-relaxed">
+            While extensive support exists, information can be scattered across
+            different sources and languages. Many immigrants struggle to find
+            the right resource at the right time. Centralized, accessible
+            guidance can bridge these gaps and connect people with existing
+            services more effectively.
+          </p>
+        </div>
+      </div>
+
+      <div class="border-t border-forest-800 pt-10">
+        <h3 class="text-xl font-bold mb-6 text-center">
+          How Finntegrate Fits Into This System
+        </h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div
+            class="bg-forest-900/50 rounded-2xl p-7 border border-forest-800"
+          >
+            <h4 class="font-semibold text-white mb-3">For Immigrants</h4>
+            <p class="text-forest-200 text-sm leading-relaxed">
+              We don't replace existing services — we help you find and
+              understand them. Our AI assistant connects you with the right
+              official resources at the right time, explains complex processes
+              in your language, and helps you prepare for important steps.
+            </p>
+          </div>
+          <div
+            class="bg-forest-900/50 rounded-2xl p-7 border border-forest-800"
+          >
+            <h4 class="font-semibold text-white mb-3">For Organizations</h4>
+            <p class="text-forest-200 text-sm leading-relaxed">
+              By providing accessible, multilingual guidance, we reduce the
+              burden on government services while improving outcomes for
+              immigrants. This creates value for both immigrants and the
+              organizations that support them.
+            </p>
+          </div>
+        </div>
+        <p class="text-center text-forest-300 text-sm mt-7 max-w-2xl mx-auto">
+          Our goal is to make the existing system work better for everyone by
+          improving access to information and reducing confusion about
+          processes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    heading="Supporting Immigrants Through Better Information Access"
+    body="This understanding of immigrant experiences informs our mission to create more accessible, helpful guidance for newcomers to Finland and the organizations that support them."
+    primaryLabel="Learn About Our AI Assistant"
+    primaryHref="/tapio"
+    secondaryLabel="Contact Us"
+    secondaryHref="/contact"
+  />
 </Base>

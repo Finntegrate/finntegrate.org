@@ -1,0 +1,396 @@
+---
+import Base from '@/layouts/Base.astro';
+
+const guides = [
+  { name: 'Ilmarinen', domain: 'Immigration Documents' },
+  { name: 'Sampo',     domain: 'Employment & Career' },
+  { name: 'Rauni',     domain: 'Social Services & Benefits' },
+  { name: 'Otso',      domain: 'Housing & Daily Life' },
+];
+
+const partners = [
+  'Information Specialists',
+  'Government Agencies',
+  'Immigrant Support Groups',
+  'Funding Organizations',
+];
+---
+
+<Base
+  title="Finntegrate — Making Finnish Immigration Simpler"
+  description="An AI-powered, multilingual guide that helps immigrants find and understand the information they need when moving to Finland."
+>
+
+  {/* ── Hero ─────────────────────────────────────────────────────────── */}
+  <section class="bg-gradient-to-br from-forest-950 via-forest-900 to-nordic-950 text-white">
+    <div class="max-w-5xl mx-auto px-6 py-28 text-center">
+      <h1 class="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight mb-6">
+        Making Finnish Immigration<br class="hidden md:block" /> Simpler
+      </h1>
+      <p class="text-lg md:text-xl text-forest-100 mb-10 max-w-2xl mx-auto leading-relaxed">
+        We're building an AI-powered, multilingual guide that helps immigrants find and understand
+        the information they need when moving to Finland.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/about"
+          class="inline-block bg-amber-500 hover:bg-amber-400 text-white font-semibold px-8 py-3 rounded-full transition-colors duration-200 shadow-lg"
+        >
+          Learn About Our Mission
+        </a>
+        <a
+          href="/contact"
+          class="inline-block border-2 border-white/60 text-white hover:bg-white hover:text-forest-950 font-semibold px-8 py-3 rounded-full transition-colors duration-200"
+        >
+          Partner With Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* ── The Information Challenge ─────────────────────────────────────── */}
+  <section class="bg-gray-50 py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">The Information Challenge</h2>
+        <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+          Moving to a new country is complicated. Finding the right information shouldn't be.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+          <h3 class="text-xl font-semibold text-gray-900 mb-5 flex items-center gap-3">
+            <span class="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </span>
+            Common Hurdles
+          </h3>
+          <ul class="space-y-3 text-gray-600">
+            {[
+              'Complex processes that change frequently and require specific steps',
+              'Unfamiliar terms and systems that are hard to understand without guidance',
+              'Online services that can be difficult to find and use',
+              'Information spread across many websites from different government offices',
+            ].map(item => (
+              <li class="flex items-start gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0 mt-2"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+          <h3 class="text-xl font-semibold text-gray-900 mb-5 flex items-center gap-3">
+            <span class="w-9 h-9 rounded-full bg-nordic-100 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-nordic-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </span>
+            Why It Happens
+          </h3>
+          <ul class="space-y-3 text-gray-600">
+            {[
+              'Information is organized around official processes rather than what newcomers need to know',
+              'Search tools often require exact official terms instead of everyday language',
+              'Different agencies handle different parts of the process, making it hard to see the complete picture',
+              "Systems are designed from the service provider's perspective rather than the newcomer's needs",
+            ].map(item => (
+              <li class="flex items-start gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-nordic-400 flex-shrink-0 mt-2"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  {/* ── Our Solution ─────────────────────────────────────────────────── */}
+  <section class="bg-white py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Solution</h2>
+        <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+          We're building a tool that puts your needs first, making it easier to find and understand
+          Finnish immigration information.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="rounded-2xl p-7 border border-forest-100 hover:border-forest-300 hover:shadow-md transition-all duration-200">
+          <div class="w-11 h-11 rounded-xl bg-forest-100 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-forest-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">Practical, Task-Based Help</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">We focus on what you're trying to do, not just what the system requires, so you can complete important tasks successfully.</p>
+        </div>
+
+        <div class="rounded-2xl p-7 border border-amber-100 hover:border-amber-300 hover:shadow-md transition-all duration-200">
+          <div class="w-11 h-11 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">Talk Like a Human</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Ask questions in your own words, not official terminology. Our system understands what you mean, not just what you say.</p>
+        </div>
+
+        <div class="rounded-2xl p-7 border border-nordic-100 hover:border-nordic-300 hover:shadow-md transition-all duration-200">
+          <div class="w-11 h-11 rounded-xl bg-nordic-100 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-nordic-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">Your Language, Not Ours</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Get help in your preferred language, not just Finnish or English, making complex information more accessible.</p>
+        </div>
+
+        <div class="rounded-2xl p-7 border border-purple-100 hover:border-purple-300 hover:shadow-md transition-all duration-200">
+          <div class="w-11 h-11 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">Smart, AI-Powered Help</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Our system finds the right information from official sources and explains it clearly, in a way that makes sense for your situation.</p>
+        </div>
+
+        <div class="rounded-2xl p-7 border border-teal-100 hover:border-teal-300 hover:shadow-md transition-all duration-200">
+          <div class="w-11 h-11 rounded-xl bg-teal-100 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-teal-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">Connecting the Dots</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">We bring together information from different agencies so you can see the whole picture, not just one piece at a time.</p>
+        </div>
+
+        <div class="rounded-2xl p-7 border border-gray-100 hover:border-gray-300 hover:shadow-md transition-all duration-200">
+          <div class="w-11 h-11 rounded-xl bg-gray-100 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">Your Privacy First</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">We help without collecting your personal information. We don't store your data or ask for sensitive details.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  {/* ── Meet Tapio ────────────────────────────────────────────────────── */}
+  <section class="bg-forest-950 text-white py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <p class="text-amber-400 font-semibold uppercase tracking-widest text-sm mb-3">Your Guide</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Meet Tapio</h2>
+        <p class="text-forest-200 text-lg max-w-xl mx-auto">
+          Your Finnish mythology-inspired guide through the immigration process.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 items-start mb-6">
+        <div>
+          <h3 class="text-2xl font-semibold mb-4">Tapio: Your Forest Guide</h3>
+          <p class="text-forest-200 leading-relaxed mb-4">
+            Named after the wise forest god from Finnish mythology, Tapio guides you through the
+            complex landscape of Finnish bureaucracy with clarity and cultural understanding.
+          </p>
+          <p class="text-forest-200 leading-relaxed mb-7">
+            Just as Tapio provided wisdom to those who sought guidance in the forest, our Tapio
+            helps you find your path through the Finnish immigration system.
+          </p>
+          <a
+            href="/tapio"
+            class="inline-block bg-amber-500 hover:bg-amber-400 text-white font-semibold px-6 py-2.5 rounded-full transition-colors duration-200 text-sm"
+          >
+            Learn More About Tapio
+          </a>
+        </div>
+
+        <div>
+          <p class="text-forest-300 font-semibold uppercase tracking-wide text-sm mb-3">
+            Specialized Guides for Every Need
+          </p>
+          <p class="text-forest-200 text-sm leading-relaxed mb-6">
+            Tapio isn't just one assistant—it's a team of specialized guides that each excel in
+            different aspects of the immigration process:
+          </p>
+          <div class="grid grid-cols-2 gap-3">
+            {guides.map(guide => (
+              <div class="bg-forest-900/60 rounded-xl p-4 border border-forest-800 hover:border-amber-600/50 transition-colors">
+                <p class="font-semibold text-white text-sm">{guide.name}</p>
+                <p class="text-forest-300 text-xs mt-1">{guide.domain}</p>
+              </div>
+            ))}
+          </div>
+          <p class="text-forest-300 text-xs mt-5 leading-relaxed">
+            Each guide combines deep knowledge of their domain with a cultural connection that makes
+            Finnish systems more accessible and welcoming.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Roadmap ────────────────────────────────────────────────────────── */}
+  <section class="bg-gray-50 py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Where We Are Now</h2>
+        <p class="text-gray-600 text-lg max-w-xl mx-auto">
+          Finntegrate is an active project with several key milestones already completed.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <div class="bg-white rounded-2xl p-7 shadow-sm border border-gray-100">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="font-semibold text-gray-900">Core Information System</h3>
+            <span class="text-xs font-medium px-3 py-1 rounded-full bg-forest-100 text-forest-800">Completed</span>
+          </div>
+          <ul class="space-y-2.5 text-sm text-gray-600">
+            {[
+              'Collected information from official websites',
+              'Created a searchable database with relevant filters',
+              'Built tools to find the right information quickly',
+              'Developed a simple chat interface',
+              'Added support for multiple languages',
+            ].map(item => (
+              <li class="flex items-start gap-2.5">
+                <span class="text-forest-500 font-bold mt-0.5 flex-shrink-0">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-2xl p-7 shadow-sm border border-amber-100">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="font-semibold text-gray-900">Advanced Features</h3>
+            <span class="text-xs font-medium px-3 py-1 rounded-full bg-amber-100 text-amber-800">In Progress</span>
+          </div>
+          <ul class="space-y-2.5 text-sm text-gray-600">
+            {[
+              'Understanding what users need at each step',
+              'Creating specialized helpers for different situations',
+              'Building tools for specific scenarios like permit interviews',
+              'Connecting information from different government sources',
+            ].map(item => (
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-500 flex-shrink-0 mt-0.5">◉</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-2xl p-7 shadow-sm border border-gray-100">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="font-semibold text-gray-900">Technical Improvements</h3>
+            <span class="text-xs font-medium px-3 py-1 rounded-full bg-gray-100 text-gray-600">Planned</span>
+          </div>
+          <ul class="space-y-2.5 text-sm text-gray-600">
+            {[
+              'Making the system more flexible and expandable',
+              'Creating ways for other services to connect with ours',
+              'Improving the design based on user feedback',
+            ].map(item => (
+              <li class="flex items-start gap-2.5">
+                <span class="text-gray-400 flex-shrink-0 mt-0.5">○</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-2xl p-7 shadow-sm border border-gray-100">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="font-semibold text-gray-900">User Research</h3>
+            <span class="text-xs font-medium px-3 py-1 rounded-full bg-gray-100 text-gray-600">Planned</span>
+          </div>
+          <ul class="space-y-2.5 text-sm text-gray-600">
+            {[
+              'Asking immigrants what help they need most',
+              'Getting feedback from the community',
+              'Learning how people search for immigration information',
+            ].map(item => (
+              <li class="flex items-start gap-2.5">
+                <span class="text-gray-400 flex-shrink-0 mt-0.5">○</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  {/* ── Working Together ─────────────────────────────────────────────── */}
+  <section class="bg-forest-950 text-white py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Working Together</h2>
+        <p class="text-forest-200 text-lg max-w-xl mx-auto">
+          Finntegrate is built by people who've moved to Finland themselves. We know firsthand how
+          challenging it can be.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-10 items-start">
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Partner With Us</h3>
+          <p class="text-forest-200 mb-6 leading-relaxed">
+            We're looking for partners who want to help make Finland more accessible to newcomers:
+          </p>
+          <ul class="space-y-3">
+            {partners.map(partner => (
+              <li class="flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0"></span>
+                <span class="text-forest-100">{partner}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-forest-900/50 rounded-2xl p-8 border border-forest-800">
+          <h3 class="text-xl font-semibold mb-3">Join Our Mission</h3>
+          <p class="text-forest-200 mb-7 text-sm leading-relaxed">
+            Help us make moving to Finland smoother for everyone. Together, we can create a better
+            experience for newcomers.
+          </p>
+          <p class="text-forest-300 font-semibold mb-4 text-xs uppercase tracking-wider">Get Involved</p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a
+              href="https://github.com/brylie/finntegrate.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 bg-white text-forest-950 font-semibold px-5 py-2.5 rounded-full hover:bg-forest-50 transition-colors text-sm"
+            >
+              <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+              </svg>
+              GitHub Repository
+            </a>
+            <a
+              href="/contact"
+              class="inline-flex items-center gap-2 border border-white/50 text-white font-semibold px-5 py-2.5 rounded-full hover:bg-white/10 transition-colors text-sm"
+            >
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Base>

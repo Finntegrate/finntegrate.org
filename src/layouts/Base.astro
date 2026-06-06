@@ -1,0 +1,99 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Finntegrate — AI-powered, multilingual immigration guide for Finland' } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/experiences', label: 'Immigrant Experiences' },
+  { href: '/about',       label: 'Mission & Vision' },
+  { href: '/tapio',       label: 'Tapio' },
+  { href: '/contact',     label: 'Contact' },
+  { href: '/resources',   label: 'Resources' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-white text-gray-900" style="font-family: Inter, system-ui, sans-serif;">
+
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+      <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="/" class="text-xl font-bold text-forest-900 hover:text-forest-700 tracking-tight transition-colors">
+          Finntegrate
+        </a>
+        <ul class="hidden md:flex items-center gap-7 text-sm font-medium text-gray-600">
+          {navLinks.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class={`hover:text-forest-800 transition-colors ${currentPath === link.href ? 'text-forest-800 font-semibold' : ''}`}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="md:hidden">
+          <a href="/about" class="text-sm font-medium text-gray-600 hover:text-forest-700">Menu</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="bg-forest-950 text-forest-200">
+      <div class="max-w-6xl mx-auto px-6 py-12">
+        <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+          <div class="sm:col-span-2">
+            <p class="text-white font-bold text-lg mb-2">Finntegrate</p>
+            <p class="text-forest-300 text-sm leading-relaxed max-w-xs">
+              Making Finnish immigration simpler through AI-powered, multilingual guidance.
+            </p>
+          </div>
+          <div>
+            <p class="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Explore</p>
+            <ul class="space-y-2 text-sm">
+              {navLinks.map(link => (
+                <li><a href={link.href} class="hover:text-white transition-colors">{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p class="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Connect</p>
+            <ul class="space-y-2 text-sm">
+              <li><a href="https://github.com/brylie/finntegrate.org" class="hover:text-white transition-colors">GitHub</a></li>
+              <li><a href="/contact" class="hover:text-white transition-colors">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-forest-900 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-forest-400">
+          <p>
+            &copy; {new Date().getFullYear()} Finntegrate. Content licensed under
+            <a href="https://creativecommons.org/licenses/by/4.0/" class="underline hover:text-white" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.
+          </p>
+          <p>
+            Code licensed under
+            <a href="https://opensource.org/licenses/MIT" class="underline hover:text-white" target="_blank" rel="noopener noreferrer">MIT</a>.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>

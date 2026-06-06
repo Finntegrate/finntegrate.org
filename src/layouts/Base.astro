@@ -10,13 +10,16 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
+const normalizedPath =
+  currentPath !== "/" && currentPath.endsWith("/")
+    ? currentPath.slice(0, -1)
+    : currentPath;
 
 const navLinks = [
   { href: "/experiences", label: "Immigrant Experiences" },
-  { href: "/about", label: "Mission & Vision" },
-  { href: "/tapio", label: "Tapio" },
-  { href: "/contact", label: "Contact" },
-  { href: "/resources", label: "Resources" },
+  { href: "/about",       label: "Mission & Vision" },
+  { href: "/tapio",       label: "Tapio" },
+  { href: "/contact",     label: "Contact" },
 ];
 ---
 
@@ -60,8 +63,8 @@ const navLinks = [
               <li>
                 <a
                   href={link.href}
-                  aria-current={currentPath === link.href ? "page" : undefined}
-                  class={`hover:text-forest-800 transition-colors ${currentPath === link.href ? "text-forest-800 font-semibold" : ""}`}
+                  aria-current={normalizedPath === link.href ? "page" : undefined}
+                  class={`hover:text-forest-800 transition-colors ${normalizedPath === link.href ? "text-forest-800 font-semibold" : ""}`}
                 >
                   {link.label}
                 </a>

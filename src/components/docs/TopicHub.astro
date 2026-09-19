@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+interface Props {
+  topic: string;
+}
+
+const { topic } = Astro.props;
+
+const relatedEntries = (await getCollection('docs'))
+  .filter(
+    (entry) =>
+      entry.id !== `docs/topics/${topic}` &&
+      !entry.id.startsWith('docs/topics/') &&
+      entry.data.topics?.includes(topic),
+  )
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const hrefFor = (id: string) => `/${id}/`;
+---
+
+{
+  relatedEntries.length > 0 ? (
+    <CardGrid>
+      {relatedEntries.map((entry) => (
+        <LinkCard
+          href={hrefFor(entry.id)}
+          title={entry.data.title}
+          description={entry.data.description}
+        />
+      ))}
+    </CardGrid>
+  ) : (
+    <p>Related material will appear here as it is published.</p>
+  )
+}

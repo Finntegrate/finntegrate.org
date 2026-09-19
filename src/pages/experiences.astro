@@ -271,7 +271,7 @@ const resources = [
 >
   {/* ── Hero ─────────────────────────────────────────────────────────── */}
   <section
-    class="bg-gradient-to-br from-forest-950 via-forest-900 to-nordic-950 text-white"
+    class="bg-linear-to-br from-forest-950 via-forest-900 to-nordic-950 text-white"
   >
     <div class="max-w-5xl mx-auto px-6 py-24 text-center">
       <a
@@ -348,7 +348,7 @@ const resources = [
           phases.map((phase) => (
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
               <div class="flex items-center gap-4 px-7 pt-7 pb-4">
-                <span class="w-10 h-10 rounded-full bg-forest-950 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
+                <span class="w-10 h-10 rounded-full bg-forest-950 text-white flex items-center justify-center font-bold text-sm shrink-0">
                   {phase.number}
                 </span>
                 <div>
@@ -370,7 +370,7 @@ const resources = [
                   <ul class="space-y-1">
                     {phase.needed.map((n) => (
                       <li class="text-sm text-gray-700 flex items-start gap-2">
-                        <span class="text-forest-500 font-bold mt-0.5 flex-shrink-0">
+                        <span class="text-forest-500 font-bold mt-0.5 shrink-0">
                           ·
                         </span>
                         {n}
@@ -385,7 +385,7 @@ const resources = [
                   <ul class="space-y-1 mb-4">
                     {phase.challenges.map((c) => (
                       <li class="text-sm text-gray-700 flex items-start gap-2">
-                        <span class="text-red-400 mt-0.5 flex-shrink-0">·</span>
+                        <span class="text-red-400 mt-0.5 shrink-0">·</span>
                         {c}
                       </li>
                     ))}
@@ -783,7 +783,7 @@ const resources = [
                 </p>
               </div>
               {i < arr.length - 1 && (
-                <div class="text-gray-400 flex-shrink-0 hidden md:block">
+                <div class="text-gray-400 shrink-0 hidden md:block">
                   <svg
                     aria-hidden="true"
                     class="w-6 h-6"
@@ -843,7 +843,7 @@ const resources = [
             {
               agencies.map((a) => (
                 <div class="flex items-start gap-3">
-                  <span class="bg-forest-800 text-amber-300 font-bold text-xs px-2.5 py-1 rounded-full flex-shrink-0 mt-0.5">
+                  <span class="bg-forest-800 text-amber-300 font-bold text-xs px-2.5 py-1 rounded-full shrink-0 mt-0.5">
                     {a.name}
                   </span>
                   <span class="text-forest-200 text-sm">{a.role}</span>
@@ -867,7 +867,7 @@ const resources = [
             {
               resources.map((r) => (
                 <li class="flex items-start gap-3 text-sm text-forest-200">
-                  <span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0 mt-1.5" />
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0 mt-1.5" />
                   {r}
                 </li>
               ))

@@ -7,6 +7,7 @@ const glossaryEntries = (await getCollection('docs'))
     (entry) =>
       entry.data.collection === 'shared-reference-layer' &&
       entry.data.contentType === 'reference' &&
+      entry.data.status !== 'draft' &&
       entry.id.startsWith('docs/glossary/') &&
       !entry.id.endsWith('/index'),
   )

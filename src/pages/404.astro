@@ -1,0 +1,35 @@
+---
+import Base from "@/layouts/Base.astro";
+---
+
+<Base
+  title="Page not found | Finntegrate"
+  description="The requested Finntegrate page could not be found."
+>
+  <section class="mx-auto max-w-3xl px-6 py-24 text-center">
+    <p class="text-sm font-semibold uppercase tracking-widest text-forest-700">
+      404
+    </p>
+    <h1 class="mt-3 text-4xl font-bold tracking-tight text-forest-950 sm:text-5xl">
+      Page not found
+    </h1>
+    <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-gray-600">
+      Check the address, return to the Finntegrate home page, or browse the
+      documentation.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <a
+        href="/"
+        class="rounded-lg bg-forest-800 px-5 py-3 font-semibold text-white transition-colors hover:bg-forest-700"
+      >
+        Return home
+      </a>
+      <a
+        href="/docs/"
+        class="rounded-lg border border-forest-800 px-5 py-3 font-semibold text-forest-800 transition-colors hover:bg-forest-50"
+      >
+        Browse documentation
+      </a>
+    </div>
+  </section>
+</Base>

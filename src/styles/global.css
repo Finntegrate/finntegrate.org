@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* Keep the existing project tokens available while Tailwind 4 uses CSS-first configuration. */
+@config "../../tailwind.config.mjs";
